@@ -7,7 +7,13 @@ import {
     GET_PRODUCT_SUCCESS,
     ADD_PRODUCT,
     ADD_PRODUCT_SUCCESS,
-    ADD_PRODUCT_FAILURE
+    ADD_PRODUCT_FAILURE,
+    DELETE_PRODUCT,
+    DELETE_PRODUCT_SUCCESS,
+    DELETE_PRODUCT_FAILURE,
+    SEARCH_PRODUCT,
+    SEARCH_PRODUCT_SUCCESS,
+    SEARCH_PRODUCT_FAILURE
 } from "../actionTypes/product";
 
 // export const GET_PRODUCTS = 'GET_PRODUCTS'
@@ -21,6 +27,8 @@ import {
 // export const GET_PRODUCT = 'GET_PRODUCT'
 // export const GET_PRODUCT_SUCCESS = 'GET_PRODUCT_SUCCESS'
 // export const GET_PRODUCT_FAILURE = 'GET_PRODUCT_FAILURE'
+
+
 
 export function getProducts(page, limit) {
     return {
@@ -82,6 +90,50 @@ export function addProductSuccess(product) {
 export function addProductFailure(error) {
     return {
         type: ADD_PRODUCT_FAILURE,
+        error
+    }
+}
+
+export function deleteProduct(id) {
+    return {
+        type: DELETE_PRODUCT,
+        id
+    }
+}
+
+export function deleteProductSuccess(id) {
+    return {
+        type: DELETE_PRODUCT_SUCCESS,
+        id
+    }
+}
+
+export function deleteProductFailure(error) {
+    return {
+        type: DELETE_PRODUCT_FAILURE,
+        error
+    }
+}
+
+
+export function searchProduct(search, page, limit) {
+    return {
+        type: SEARCH_PRODUCT,
+        search, page, limit
+    }
+}
+
+
+export function searchProductSuccess(products) {
+    return {
+        type: SEARCH_PRODUCT_SUCCESS,
+        products
+    }
+}
+
+export function searchProductFailure(error) {
+    return {
+        type: SEARCH_PRODUCT_FAILURE,
         error
     }
 }

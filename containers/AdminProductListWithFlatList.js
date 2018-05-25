@@ -12,9 +12,26 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as productActionCreators from "../actionCreators/product";
 let URI = "http://172.16.101.168:4000";
-class ProductListWithFlatList extends Component {
+
+class AdminProductListWithFlatList extends Component {
   constructor(props) {
     super(props);
+  }
+
+  deletePress = id=>{
+    Alert.alert(
+      'Delete',
+      "Are you sure do u want to delete this product",
+      [
+        {text:"No", onPress:()=>{style:'cancel'}},
+        { text: 'Yes', onPress:()=>this.deleteItem(id)}
+      ],
+      {cancelable:false}
+    )
+  }
+
+  deleteItem=(id)=>{
+    this.props.actions.deleteProduct(id);
   }
 
   componentDidMount() {
@@ -49,8 +66,9 @@ class ProductListWithFlatList extends Component {
         image={item.image ? `${URI}/images/${item.image}` : null}
         rating={item.rating}
         price={item.price}
-        wish={item.wish || false}
-        onWishTapped={this.onWishTapped}
+        wish={false}
+        isdelete={true}
+        onWishTapped={this.deletePress}
       />
     );
   };
@@ -115,5 +133,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-  ProductListWithFlatList
+  AdminProductListWithFlatList
 );

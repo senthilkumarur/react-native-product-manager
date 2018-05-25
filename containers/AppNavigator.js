@@ -11,6 +11,8 @@ import AddProduct from "./AddProduct";
 import StoreMap from "./StoreMap";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons"
 import ProductListWithFlatList from "./ProductListWithFlatList";
+import AdminProductListWithFlatList from "./AdminProductListWithFlatList";
+import SearchProductList from "./SearchProductList";
 
 const ListStack = createStackNavigator(
   {
@@ -59,11 +61,57 @@ const AddStack = createStackNavigator(
   }
 );
 
+const AdminStack = createStackNavigator(
+  {
+    Admin: {
+      screen: AdminProductListWithFlatList
+    }
+  },
+  {
+    initialRouteName: "Admin",
+    navigationOptions: {
+      title: "Admin Product List",
+      headerStyle: {
+        backgroundColor: "#00ff80"
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "bold",
+        textAlign: "center"
+      }
+    }
+  }
+);
+
+const SearchStack = createStackNavigator(
+  {
+    Search: {
+      screen: SearchProductList
+    }
+  },
+  {
+    initialRouteName: "Search",
+    navigationOptions: {
+      title: "Search Product List",
+      headerStyle: {
+        backgroundColor: "#00ff80"
+      },
+      headerTintColor: "#fff",
+      headerTitleStyle: {
+        fontWeight: "bold",
+        textAlign: "center"
+      }
+    }
+  }
+);
+
 export const AppNavigator = createBottomTabNavigator(
   {
     List: ListStack,
     Add: AddStack,
-    Stores: StoreMap
+    Stores: StoreMap,
+    Admin:AdminStack,
+    Search: SearchStack
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -82,6 +130,10 @@ export const AppNavigator = createBottomTabNavigator(
               color={tintColor}
             />
           );
+        } else if (routeName === "Admin") {
+          iconName = `ios-person-add${focused ? "" : "-outline"}`;
+        } else if (routeName === "Search") {
+          iconName = `ios-search${focused ? "" : "-outline"}`;
         }
 
         // You can return any component that you like here! We usually use an

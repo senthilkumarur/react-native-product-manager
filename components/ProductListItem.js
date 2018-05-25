@@ -11,7 +11,8 @@ import {
   Alert
 } from "react-native";
 
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import {
+  Ionicons, FontAwesome } from "@expo/vector-icons";
 
 class ProductListItem extends React.PureComponent {
   
@@ -24,7 +25,8 @@ class ProductListItem extends React.PureComponent {
       price,
       rating,
       wish = true,
-      onWishTapped
+      onWishTapped,
+      isdelete = false
     } = this.props;
     return (
       <TouchableOpacity
@@ -49,7 +51,7 @@ class ProductListItem extends React.PureComponent {
               </Text>
 
               <Ionicons
-                name={wish ? "md-heart" : "md-heart-outline"}
+                name={isdelete ? "ios-close-circle" : wish ?  "md-heart" : "md-heart-outline"}
                 size={32}
                 color="#00ff80"
                 style={{ marginRight: 10 }}

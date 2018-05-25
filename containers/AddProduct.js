@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Button, TextInput, Picker,Alert,Text,Platform } from 'react-native';
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as productActionCreators from "../actionCreators/product";
+let URI = "http://172.16.101.168:4000";
 
-let URI = "http://192.168.1.101:4000";
-
-export default class AddProduct extends Component {
+class AddProduct extends Component {
   static navigationOptions= {
     title: "Add",
     headerStyle: {
@@ -38,18 +40,15 @@ export default class AddProduct extends Component {
       this.setState({titleError:'Title is required'})
       return;
     }
-    fetch(`${URI}/products`, {
-      body: JSON.stringify({
-        title,
-        category,
-        additionalInfo,
-        price
-      }),
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-    }).then(p => {Alert.alert('Success','Product Saved Successfully')})
+   const params = {
+     title:title,
+     category: category,
+     additionalInfo:additionalInfo,
+     price:price
+   }
+
+    this.props.actions.addProduct(params);
+
   }
 
   renderCategories = () => {
@@ -130,3 +129,21 @@ const styles = StyleSheet.create({
     })
   }
 });
+
+
+function mapStateToProps(state) {
+  return {
+    product: state.productState.product,
+    isLoading: state.productState.isLoading
+ };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(productActionCreators, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+  AddProduct
+);
